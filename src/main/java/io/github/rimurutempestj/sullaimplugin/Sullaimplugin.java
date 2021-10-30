@@ -28,12 +28,60 @@ public final class Sullaimplugin extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
 
-        ItemStack wool = new ItemStack(Material.WHITE_WOOL);
+        ItemStack wool = new ItemStack(Material.WHITE_WOOL); // ---------------------------------------
         ItemMeta woolmeta = wool.getItemMeta();
-        woolmeta.setDisplayName("양털");
-        woolmeta.setLore(Arrays.asList("클릭하면 16개 지급"));
+        woolmeta.setDisplayName("양털 X16");
+        woolmeta.setLore(Arrays.asList("클릭시 구매 (철 4개)"));
         wool.setItemMeta(woolmeta);
-        inv2.setItem(11, wool);
+        inv2.setItem(11, wool); // ---------------------------------------------------------------
+        ItemStack planks = new ItemStack(Material.SPRUCE_PLANKS); // ---------------------------------------
+        ItemMeta planksmeta = planks.getItemMeta();
+        planksmeta.setDisplayName("판자 X16");
+        planksmeta.setLore(Arrays.asList("클릭시 구매 (금 4개)"));
+        planks.setItemMeta(planksmeta);
+        inv2.setItem(12, planks); // ---------------------------------------------------------------
+        ItemStack opsi = new ItemStack(Material.OBSIDIAN); // ---------------------------------------
+        ItemMeta opsimeta = opsi.getItemMeta();
+        opsimeta.setDisplayName("흑요석 X4");
+        opsimeta.setLore(Arrays.asList("클릭시 구매 (에메랄드 5개)"));
+        opsi.setItemMeta(opsimeta);
+        inv2.setItem(13, opsi); // ---------------------------------------------------------------
+        ItemStack is = new ItemStack(Material.IRON_SWORD); // ---------------------------------------
+        ItemMeta isme = is.getItemMeta();
+        isme.setLore(Arrays.asList("클릭시 구매 (금 7개)"));
+        is.setItemMeta(isme);
+        inv2.setItem(14, is); // ---------------------------------------------------------------
+        ItemStack ds = new ItemStack(Material.DIAMOND_SWORD); // ---------------------------------------
+        ItemMeta dsme = ds.getItemMeta();
+        dsme.setLore(Arrays.asList("클릭시 구매 (에메랄드 4개)"));
+        ds.setItemMeta(dsme);
+        inv2.setItem(15, ds); // ---------------------------------------------------------------
+        ItemStack airm = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+        ItemMeta airmm = airm.getItemMeta();
+        airmm.setDisplayName(" ");
+        airm.setItemMeta(airmm);
+        inv2.setItem(0, airm);
+        inv2.setItem(1, airm);
+        inv2.setItem(2, airm);
+        inv2.setItem(3, airm);
+        inv2.setItem(4, airm);
+        inv2.setItem(5, airm);
+        inv2.setItem(6, airm);
+        inv2.setItem(7, airm);
+        inv2.setItem(8, airm);
+        inv2.setItem(9, airm);
+        inv2.setItem(10, airm);
+        inv2.setItem(16, airm);
+        inv2.setItem(17, airm);
+        inv2.setItem(18, airm);
+        inv2.setItem(19, airm);
+        inv2.setItem(20, airm);
+        inv2.setItem(21, airm);
+        inv2.setItem(22, airm);
+        inv2.setItem(23, airm);
+        inv2.setItem(24, airm);
+        inv2.setItem(25, airm);
+        inv2.setItem(26, airm);
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginCommand("waterorlavaslime").setTabCompleter(new tapcom());
         Bukkit.getPluginCommand("gm").setTabCompleter(new tapcom1());
@@ -52,6 +100,7 @@ public final class Sullaimplugin extends JavaPlugin implements Listener {
         Entity en = e.getRightClicked();
 
         if(en.getType().equals(EntityType.VILLAGER)) {
+            e.setCancelled(true);
             p.openInventory(inv2);
         }
     }
@@ -73,6 +122,58 @@ public final class Sullaimplugin extends JavaPlugin implements Listener {
                 } else {
                     p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f); //NO소리 재생
                     p.sendMessage("철이 부족합니다(4개 필요)");
+                }
+
+            } else if(e.getCurrentItem().getType().equals(Material.SPRUCE_PLANKS)) { //SPRUCE_PLANKS
+                if(p.getInventory().containsAtLeast(new ItemStack(Material.GOLD_INGOT), 4)) { //금이 있는지 감지 (4개 이상)
+                    ItemStack planks = new ItemStack(Material.SPRUCE_PLANKS);
+                    planks.setAmount(16);
+                    p.getInventory().addItem(planks);
+                    ItemStack gold = new ItemStack(Material.GOLD_INGOT);
+                    gold.setAmount(4);
+                    p.getInventory().removeItem(gold);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f); //구매 소리 재생
+                } else {
+                    p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f); //NO소리 재생
+                    p.sendMessage("금이 부족합니다(4개 필요)");
+                }
+
+            } else if(e.getCurrentItem().getType().equals(Material.OBSIDIAN)) { //OBSIDIAN
+                if(p.getInventory().containsAtLeast(new ItemStack(Material.EMERALD), 5)) { //에메랄드가 있는지 감지 (5개 이상)
+                    ItemStack opsi = new ItemStack(Material.OBSIDIAN);
+                    opsi.setAmount(4);
+                    p.getInventory().addItem(opsi);
+                    ItemStack em = new ItemStack(Material.EMERALD);
+                    em.setAmount(5);
+                    p.getInventory().removeItem(em);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f); //구매 소리 재생
+                } else {
+                    p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f); //NO소리 재생
+                    p.sendMessage("에메랄드가 부족합니다(5개 필요)");
+                }
+
+            } else if(e.getCurrentItem().getType().equals(Material.IRON_SWORD)) { //IRON_SWORD
+                if(p.getInventory().containsAtLeast(new ItemStack(Material.GOLD_INGOT), 7)) { //금이 있는지 감지 (7개 이상)
+                    p.getInventory().addItem(new ItemStack(Material.IRON_SWORD));
+                    ItemStack gold = new ItemStack(Material.GOLD_INGOT);
+                    gold.setAmount(7);
+                    p.getInventory().removeItem(gold);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f); //구매 소리 재생
+                } else {
+                    p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f); //NO소리 재생
+                    p.sendMessage("금이 부족합니다(7개 필요)");
+                }
+
+            } else if(e.getCurrentItem().getType().equals(Material.DIAMOND_SWORD)) { //DIAMOND_SWORD
+                if(p.getInventory().containsAtLeast(new ItemStack(Material.EMERALD), 4)) { //에메랄드가 있는지 감지 (4개 이상)
+                    p.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
+                    ItemStack em = new ItemStack(Material.EMERALD);
+                    em.setAmount(4);
+                    p.getInventory().removeItem(em);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f); //구매 소리 재생
+                } else {
+                    p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f); //NO소리 재생
+                    p.sendMessage("에메랄드가 부족합니다(4개 필요)");
                 }
 
             }
