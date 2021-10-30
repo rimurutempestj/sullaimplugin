@@ -1,13 +1,6 @@
 package io.github.rimurutempestj.sullaimplugin;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import javax.sql.rowset.spi.SyncFactoryException;
-
-import static javax.sql.rowset.spi.SyncFactory.getLogger;
 
 public final class Sullaimplugin extends JavaPlugin {
 
@@ -19,6 +12,7 @@ public final class Sullaimplugin extends JavaPlugin {
         getCommand("kickslime").setExecutor(new kickslime()); //kickslime
         getCommand("gm").setExecutor(new gm1()); //gm
         getCommand("waterorlavaslime").setExecutor(new waterslime()); //waterorlavaslime
+        getCommand("openmenu").setExecutor(new on()); //openmenu
     }
 
 
