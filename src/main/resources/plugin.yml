@@ -1,0 +1,19 @@
+name: Sullaimplugin
+version: '1.0'
+main: io.github.rimurutempestj.sullaimplugin.Sullaimplugin
+api-version: 1.17
+authors: [ sullaim ]
+description: Sullaim's test plugin
+website: https://github.com/rimurutempestj/sullaimplugin
+
+commands:
+  testslime:
+    description: testcommandslime
+    usage: /testslime
+  kickslime:
+    description: kickslime
+    usage: /kickslime
+  gm:
+    description: if gamemode survival, change to creative. if gamemode creative, change to survival.
+  waterorlavaslime:
+    description: asdf
