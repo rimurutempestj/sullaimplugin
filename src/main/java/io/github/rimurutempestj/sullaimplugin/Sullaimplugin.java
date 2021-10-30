@@ -1,9 +1,12 @@
 package io.github.rimurutempestj.sullaimplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -20,9 +23,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.UUID;
 
 public final class Sullaimplugin extends JavaPlugin implements Listener {
     Inventory inv2 = Bukkit.createInventory(null, 27, "상점");
+    HashMap<UUID, Long> cooltime = new HashMap<UUID, Long>();
+    HashMap<UUID, Location> home = new HashMap<UUID, Location>();
 
     @Override
     public void onEnable() {
@@ -106,6 +113,30 @@ public final class Sullaimplugin extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onClick(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        Action a = e.getAction();
+        UUID uuid = p.getUniqueId();
+        if(a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK) {
+            if(p.getItemInHand().getType().equals(Material.BLAZE_ROD)) {
+
+                int cool = 3;
+                if(cooltime.containsKey(uuid)) {
+                    long timeLeft = ((cooltime.get(uuid) / 1000) + cool) - System.currentTimeMillis() / 1000;
+                    if(timeLeft > 0) {
+                        p.sendMessage("쿨타임이" + timeLeft + "초 남았습니다.");
+                        return;
+                    }
+                }
+
+                cooltime.put(uuid, System.currentTimeMillis());
+                p.setVelocity(p.getLocation().getDirection());
+                p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f, 1.0f);
+            }
+        }
+    }
+
+    @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         if(e.getClickedInventory().equals(inv2)) {
@@ -180,6 +211,24 @@ public final class Sullaimplugin extends JavaPlugin implements Listener {
         }
     }
 
+    @Override
+    public boolean onCommand(CommandSender snd, Command cmd, String label, String[] args) {
+        if(label.equalsIgnoreCase("sethome")) {
+            Player p = (Player) snd;
+            Location loc = p.getLocation();
+            home.put(p.getUniqueId(), loc);
+            p.sendMessage("집이 설정되었습니다.");
+        } else if(label.equalsIgnoreCase("home")) {
+            Player p = (Player) snd;
+            if(home.containsKey(p.getUniqueId())) {
+                Location loc = home.get(p.getUniqueId());
+                p.teleport(loc);
+            } else {
+                p.sendMessage("집이 없습니다. 집을 설정해주세요 [/sethome]");
+            }
+        }
+        return false;
+    }
     @Override
     public void onDisable() {
         // Plugin shutdown logic

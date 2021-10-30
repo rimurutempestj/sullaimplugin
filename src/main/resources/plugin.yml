@@ -1,5 +1,5 @@
 name: Sullaimplugin
-version: '1.5'
+version: '1.6'
 main: io.github.rimurutempestj.sullaimplugin.Sullaimplugin
 api-version: 1.17
 authors: [ sullaim ]
@@ -24,3 +24,9 @@ commands:
   cls:
     description: Clear your chat
     usage: /cls
+  sethome:
+    description: Set your home
+    usage: /sethome
+  home:
+    description: TP to your home
+    usage: /home
