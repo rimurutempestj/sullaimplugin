@@ -1,5 +1,5 @@
 name: Sullaimplugin
-version: '1.1'
+version: '1.1.1'
 main: io.github.rimurutempestj.sullaimplugin.Sullaimplugin
 api-version: 1.17
 authors: [ sullaim ]
