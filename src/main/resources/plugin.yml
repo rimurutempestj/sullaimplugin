@@ -1,5 +1,5 @@
 name: Sullaimplugin
-version: '1.0'
+version: '1.1'
 main: io.github.rimurutempestj.sullaimplugin.Sullaimplugin
 api-version: 1.17
 authors: [ sullaim ]
@@ -17,3 +17,6 @@ commands:
     description: if gamemode survival, change to creative. if gamemode creative, change to survival.
   waterorlavaslime:
     description: asdf
+  openmenu:
+    description: Open the menu
+    usage: /openmenu
