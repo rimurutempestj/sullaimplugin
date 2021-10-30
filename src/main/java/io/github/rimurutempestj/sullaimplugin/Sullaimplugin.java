@@ -1,5 +1,6 @@
 package io.github.rimurutempestj.sullaimplugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Sullaimplugin extends JavaPlugin {
@@ -7,6 +8,7 @@ public final class Sullaimplugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        Bukkit.getPluginCommand("waterorlavaslime").setTabCompleter(new tapcom());
         getLogger().info("슬라임 플러그인 켜짐");
         getCommand("testslime").setExecutor(new testslime()); //testslime
         getCommand("kickslime").setExecutor(new kickslime()); //kickslime
